@@ -16,6 +16,7 @@ public class Board {
                 int boxRow = i/3;
                 int boxCol = j/3;
                 boxes[boxRow][boxCol].addCell(values[i][j], i - 3*boxRow, j - 3*boxCol);
+
             }
         }
     }
@@ -72,7 +73,7 @@ public class Board {
     public void clearColumnOptions(){
         ArrayList<Integer> toBeCleared;
         for(int boxCol = 0; boxCol < boxes.length; boxCol++){
-            for(int cellCol = 0; cellCol < 3; cellCol ++) {
+            for(int cellCol = 0; cellCol < 3; cellCol++) {
                 toBeCleared = getColumnOptions(boxCol,cellCol);
                 for (int boxRow = 0; boxRow < boxes[0].length; boxRow++) {
                     for(int a: toBeCleared) {
@@ -97,7 +98,7 @@ public class Board {
             result.addAll(boxes[r][boxCol].getNewOptionsFromColumn(cellCol));
         }
         return result;
-    }
+}
 
     public void printBoard(){
         for(Box[] boxRow : boxes){
