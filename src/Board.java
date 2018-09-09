@@ -46,7 +46,7 @@ public class Board {
         }
         return true;
     }
-    public void fillNakedSingles(){
+    public void fill(){
 //        clearRowOptions();
 //        clearColumnOptions();
 //        clearBoxOptions();

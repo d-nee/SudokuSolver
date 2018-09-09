@@ -20,16 +20,25 @@ public class Set {
 
     public void update(){
         for (int i = 1; i < 10; i++) {
-            for(Cell cell : cells){
-                if(!cell.hasOption(i)){
-                    optionsList.get(i).remove(cell);
+            if(optionsList.get(i) != null) {
+                for (Cell cell : cells) {
+                    if (cell.getVal() == i) {
+                        optionsList.remove(i);
+                        break;
+                    }
+                    if (!cell.hasOption(i)) {
+                        optionsList.get(i).remove(cell);
+                    }
+
                 }
             }
         }
         for (int i = 1; i < 10; i++) {
-            ArrayList<Cell> list = optionsList.get(i);
-            if(list.size() == 1){
-                list.get(0).setVal(i);
+            if (optionsList.get(i) != null) {
+                ArrayList<Cell> list = optionsList.get(i);
+                if (list.size() == 1) {
+                    list.get(0).setVal(i);
+                }
             }
         }
     }

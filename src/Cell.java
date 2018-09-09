@@ -70,8 +70,11 @@ public class Cell {
     }
 
     public void setVal(int val){
-        options = new ArrayList<Integer>();
-        options.add(val);
-        fill();
+        if(getVal() == 0){
+            options = new ArrayList<Integer>();
+            options.add(val);
+            fill();
+        }
+
     }
 }
