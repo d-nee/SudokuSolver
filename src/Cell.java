@@ -14,7 +14,7 @@ public class Cell {
         this.parent = parent;
         if (this.val == 0) {
             options = new ArrayList<Integer>();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 1; i < 10; i++) {
                 options.add(i);
             }
         }
@@ -44,7 +44,9 @@ public class Cell {
 
     public void removeOption(int option) {
         //Please make sure you check if the val is 0 before using this method!
-        options.remove(option);
+        if(options.indexOf(option) != -1) {
+            options.remove(options.indexOf(option));
+        }
     }
 
 

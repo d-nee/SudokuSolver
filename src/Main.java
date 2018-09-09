@@ -3,22 +3,14 @@ public class Main {
     public static void main(String[] args) {
         Reader r = new Reader();
         Board b = new Board(r.loadPuzzle("Puzzles/puzzle1.txt"));
-        while(!b.isSolved()){
+        b.printBoard();
+        while(!b.isSolved()) {
             b.fillNakedSingles();
         }
+        System.out.println();
+        b.printBoard();
 
-        for(Box[] boxes : b.getBoxes()){
-            for(Box box : boxes){
-                for(Cell[] cells : box.getCells()){
-                    for(Cell cell : cells){
-                        System.out.println(cell.getVal() + "");
-                    }
-                    System.out.println("\n");
-                }
-                System.out.println("\n");
-            }
-            System.out.println("\n\n");
-        }
+
     }
 
 }

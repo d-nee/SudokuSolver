@@ -99,6 +99,19 @@ public class Board {
         return result;
     }
 
+    public void printBoard(){
+        for(Box[] boxRow : boxes){
+            for(int cellRow = 0; cellRow < 3; cellRow++) {
+                for (Box box : boxRow) {
+                    for(int a: box.getRow(cellRow)){
+                        System.out.print(a + " ");
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+
 
 
 

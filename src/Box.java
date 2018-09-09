@@ -76,7 +76,7 @@ public class Box {
     public void fillNakedSingles(){
         for(Cell[] cellRow: cells){
             for(Cell cell: cellRow){
-                if(cell.getVal() == 0 && cell.getOptionsSize() == 0){
+                if(cell.getVal() == 0 && cell.getOptionsSize() == 1){
                     cell.fill();
                 }
             }
@@ -104,6 +104,14 @@ public class Box {
             if(!cells[r][c].getUsedToClear() && cells[r][c].getVal() != 0) {
                 result.add(cells[r][c].getVal());
             }
+        }
+        return result;
+    }
+
+    public int[] getRow(int r){
+        int[] result = new int[3];
+        for(int i = 0; i < result.length; i++){
+            result[i] = cells[r][i].getVal();
         }
         return result;
     }
