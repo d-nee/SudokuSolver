@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class Reader {
 
     public Reader(){
-
     }
 
     public int[][] loadPuzzle(String file){

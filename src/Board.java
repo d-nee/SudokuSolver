@@ -41,9 +41,7 @@ public class Board {
                 box.useBox();
                 box.fillNakedSingles();
             }
-
         }
-
     }
 
     public void clearBoxOptions(){
