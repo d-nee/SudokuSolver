@@ -21,10 +21,6 @@ public class Cell {
         usedToClear = false;
     }
 
-    public void use(){
-        usedToClear = true;
-    }
-
     public boolean getUsedToClear(){
         return usedToClear;
     }
@@ -35,6 +31,7 @@ public class Cell {
 
     public void fill(){
         val = options.get(0);
+        clearOption();
     }
 
 
@@ -43,11 +40,47 @@ public class Cell {
     }
 
     public void removeOption(int option) {
-        //Please make sure you check if the val is 0 before using this method!
-        if(options.indexOf(option) != -1) {
+        if(val == 0 && options.indexOf(option) != -1) {
             options.remove(options.indexOf(option));
+            if(options.size() == 1){
+                fill();
+            }
         }
     }
 
+    public int getRow() {
+        return row;
+    }
 
+    public int getCol() {
+        return col;
+    }
+
+    public void clearOption(){
+        clearOptionFromRow();
+        clearOptionFromCol();
+        clearOptionFromBox();
+        usedToClear = true;
+    }
+
+    public void clearOptionFromRow(){
+        for(Cell cell : parent.getParent().getCells()[row]){
+            cell.removeOption(val);
+        }
+    }
+
+    public void clearOptionFromCol(){
+        Cell[][] cells = parent.getParent().getCells();
+        for (int i = 0; i < cells.length; i++) {
+            cells[i][col].removeOption(val);
+        }
+    }
+
+    public void clearOptionFromBox(){
+        for(Cell[] cells : parent.getCells()){
+            for(Cell cell : cells){
+                cell.removeOption(val);
+            }
+        }
+    }
 }
