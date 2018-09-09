@@ -14,7 +14,7 @@ public class Reader {
         String puzString = "";
         try{
             String line = input.readLine();
-            while(line.length() > 0){
+            while(line!=null && line.length() > 0){
                 puzString += line + "\n";
                 line = input.readLine();
             }
