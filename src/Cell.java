@@ -1,16 +1,20 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Cell {
 
     private int val, row, col;
-    private Box parent;
+    private Board parent;
     private ArrayList<Integer> options;
     private boolean usedToClear;
+    private HashMap<String, Set> sets;
 
-    public Cell(int val, int row, int col, Box parent) {
+    public Cell(int val, int row, int col, Board parent) {
         this.val = val;
         this.row = row;
         this.col = col;
+
+        sets = new HashMap<String, Set>();
         this.parent = parent;
         if (this.val == 0) {
             options = new ArrayList<Integer>();
@@ -19,15 +23,9 @@ public class Cell {
             }
         }
         usedToClear = false;
+
     }
 
-    public boolean getUsedToClear(){
-        return usedToClear;
-    }
-
-    public int getOptionsSize(){
-        return options.size();
-    }
 
     public void fill(){
         val = options.get(0);
@@ -45,42 +43,35 @@ public class Cell {
             if(options.size() == 1){
                 fill();
             }
+            for(String s : sets.keySet()){
+                sets.get(s).update();
+            }
         }
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
 
     public void clearOption(){
-        clearOptionFromRow();
-        clearOptionFromCol();
-        clearOptionFromBox();
-        usedToClear = true;
-    }
-
-    public void clearOptionFromRow(){
-        for(Cell cell : parent.getParent().getCells()[row]){
-            cell.removeOption(val);
-        }
-    }
-
-    public void clearOptionFromCol(){
-        Cell[][] cells = parent.getParent().getCells();
-        for (int i = 0; i < cells.length; i++) {
-            cells[i][col].removeOption(val);
-        }
-    }
-
-    public void clearOptionFromBox(){
-        for(Cell[] cells : parent.getCells()){
-            for(Cell cell : cells){
+        for(String s : sets.keySet()){
+            for(Cell cell : sets.get(s).getCells()){
                 cell.removeOption(val);
             }
         }
+        usedToClear = true;
+    }
+
+
+    public boolean hasOption(int option){
+        return (options != null && options.indexOf(option) != -1);
+
+    }
+
+    public HashMap<String, Set> getSets() {
+        return sets;
+    }
+
+    public void setVal(int val){
+        options = new ArrayList<Integer>();
+        options.add(val);
+        fill();
     }
 }

@@ -2,28 +2,38 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private Box[][] boxes;
     private Cell[][] cells;
 
     public Board(int[][] values){
-        boxes = new Box[3][3];
+        ArrayList<Cell>[] boxSets = new ArrayList[9];
         cells = new Cell[9][9];
-        for (int i = 0; i < boxes.length; i++) {
-            for (int j = 0; j < boxes[0].length; j++) {
-                boxes[i][j] = new Box(i, j, this);
-            }
+        for (int i = 0; i < 9; i++) {
+            boxSets[i] = new ArrayList<Cell>();
         }
         for (int i = 0; i < values.length; i++) {
             for (int j = 0; j < values[0].length; j++) {
-                int boxRow = i/3;
-                int boxCol = j/3;
-                boxes[boxRow][boxCol].addCell(values[i][j], i - 3*boxRow, j - 3*boxCol);
+                Cell cell = new Cell(values[i][j], i, j, this);
+                cells[i][j] = cell;
+                int boxIdx = i/3*3 + j/3;
+                boxSets[boxIdx].add(cell);
             }
         }
-    }
 
-    public void addCell(Cell cell){
-        cells[cell.getRow()][cell.getCol()] = cell;
+        for (int i = 0; i < 9; i++) {
+            Cell[] box = new Cell[9];
+            for (int j = 0; j < 9; j++) {
+                box[j] = boxSets[i].get(j);
+            }
+            new Set(box, "box");
+            new Set(cells[i], "row");
+            Cell[] list = new Cell[9];
+            for (int j = 0; j < 9; j++) {
+                list[j] = cells[j][i];
+            }
+            new Set(list, "col");
+        }
+
+
     }
 
     public boolean isSolved(){
@@ -47,6 +57,7 @@ public class Board {
                 }
             }
         }
+
 
     }
 
