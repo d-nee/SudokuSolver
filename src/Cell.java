@@ -46,6 +46,12 @@ public class Cell {
             for(String s : sets.keySet()){
                 sets.get(s).update();
             }
+            for(Set row : parent.getRows()){
+                row.checkPointingPairs();
+            }
+            for(Set col : parent.getCols()){
+                col.checkPointingPairs();
+            }
         }
     }
 
@@ -76,5 +82,9 @@ public class Cell {
             fill();
         }
 
+    }
+
+    public ArrayList<Integer> getOptions(){
+        return options;
     }
 }

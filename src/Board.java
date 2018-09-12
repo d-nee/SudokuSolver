@@ -3,10 +3,13 @@ import java.util.ArrayList;
 public class Board {
 
     private Cell[][] cells;
+    private Set[] rows, cols;
 
     public Board(int[][] values){
         ArrayList<Cell>[] boxSets = new ArrayList[9];
         cells = new Cell[9][9];
+        rows = new Set[9];
+        cols = new Set[9];
         for (int i = 0; i < 9; i++) {
             boxSets[i] = new ArrayList<Cell>();
         }
@@ -25,12 +28,12 @@ public class Board {
                 box[j] = boxSets[i].get(j);
             }
             new Set(box, "box");
-            new Set(cells[i], "row");
+            rows[i] = new Set(cells[i], "row");
             Cell[] list = new Cell[9];
             for (int j = 0; j < 9; j++) {
                 list[j] = cells[j][i];
             }
-            new Set(list, "col");
+            cols[i] = new Set(list, "col");
         }
 
 
@@ -73,5 +76,13 @@ public class Board {
 
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public Set[] getRows() {
+        return rows;
+    }
+
+    public Set[] getCols() {
+        return cols;
     }
 }

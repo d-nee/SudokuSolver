@@ -4,9 +4,6 @@ import java.util.Arrays;
 
 public class Reader {
 
-    public Reader(){
-
-    }
 
     public int[][] loadPuzzle(String file){
         InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
