@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d8c0670-3f66-4abe-9938-25d20b02b791" name="Default" comment="nakedMultis">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+    <list default="true" id="2d8c0670-3f66-4abe-9938-25d20b02b791" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuSolver/Board.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuSolver/Main.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuSolver/Puzzles/puzzle1.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/SudokuSolver/Reader.class" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -380,7 +373,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536850919365</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="deleted out and .idea (useless)">
+      <created>1536851376590</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1536851376590</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -421,7 +421,8 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="fixed commit" />
     <MESSAGE value="nakedMultis" />
-    <option name="LAST_COMMIT_MESSAGE" value="nakedMultis" />
+    <MESSAGE value="deleted out and .idea (useless)" />
+    <option name="LAST_COMMIT_MESSAGE" value="deleted out and .idea (useless)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
