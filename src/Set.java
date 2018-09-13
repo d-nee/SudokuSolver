@@ -1,6 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 public class Set {
 
     private Cell[] cells;
@@ -47,6 +47,8 @@ public class Set {
         }
 
         for (int i = 1; i < 10; i++) {
+            //Hidden Singles - If a cell is the last cell in its set a given option,
+            //set that cell to that option regardless of how many other options that cell still has.
             if (optionsList.get(i) != null) {
                 ArrayList<Cell> list = optionsList.get(i);
                 if (list.size() == 1) {
@@ -60,14 +62,11 @@ public class Set {
         return cells;
     }
 
-    public void checkNakedMultis(){
 
-    }
-
-    public boolean checkLists(ArrayList<Object> a, ArrayList<Object> b){
+    public boolean checkLists(ArrayList<Integer> a, ArrayList<Integer> b){
         int sum = 0;
-        for(Object c : a){
-            for(Object c1 : b){
+        for(Integer c : a){
+            for(Integer c1 : b){
                 if(c.equals(c1)){
                     sum++;
                     break;
@@ -94,14 +93,21 @@ public class Set {
         }
         return -1;
     }
-
-    public void checkPointingPairs(){
+    /* I doubt the implementation of these next two methods is well optimized,
+    but its not like this program is a heavy lead on the computer (yet) */
+    public void checkIntersections(){
+        //Pointing Pairs/Triples, Box-Line Reduction.
+        //After an option is removed, a cell asks its Col and Row to check for intersections.
         for (int i = 1; i < 10; i++) {
             ArrayList<Cell> hasOption = optionsList.get(i);
+            //For a given option in the row/col
             if(hasOption != null) {
                 for (Cell cell : hasOption) {
                     Set box = cell.getSets().get("box");
                     ArrayList<Cell> boxOption = box.getOptionsList().get(i);
+                    /* If the set of cells with that option in the row is a subset of the cells within a box,
+                    OR if the cells in the box with that option is a subset of the cells in a row/col,
+                    remove the option from cells in the larger set that are not part of the subset. */
                     if (boxOption != null && boxOption.size() != hasOption.size()) {
                         if (boxOption.containsAll(hasOption)) {
                             box.clearAllFromOption(i, hasOption);
@@ -115,30 +121,54 @@ public class Set {
             }
         }
     }
+    public void nakedMultis(){
+        //Naked Doubles, Triples, Quads
+        for(Cell cell1: cells) {
+            if (cell1.getVal() == 0 && cell1.getOptions().size() < 5) {
+                ArrayList<Cell> containsOptions = new ArrayList<Cell>();
+                for (Cell cell2 : cells) {
+                    /* Check if the cell contains the optionsList of other cells in the set, given the length of the longest optionList
+                    less than 5. If so, add them to a set. If that set contains the same number of cells as options in the original cell,
+                    remove those options from cells that are do not have an optionList that is a sublist of the original cell's optionList. */
+                    if (cell2.getVal() == 0 && cell1.getOptions().containsAll(cell2.getOptions())) {
+                        containsOptions.add(cell2);
+                    }
+                }
+                Integer[] optionsToClear = new Integer[cell1.getOptions().size()];
+                cell1.getOptions().toArray(optionsToClear);
+                if (cell1.getOptions().size() == containsOptions.size()) {
+                    for (Integer a: optionsToClear) {
+                        clearAllFromOption(a, containsOptions);
+                    }
+                }
+            }
+        }
+    }
 
     public boolean hasCell(Cell c){
         return c.getSets().get(this.name).equals(this);
     }
 
+    //Clears an a given option, except for given cells (the subset found in checkIntersections)
     public void clearAllFromOption(int option, ArrayList<Cell> exclude){
-
-        ArrayList<Cell> optionList = optionsList.get(option);
-
-        for (int i = optionList.size() - 1; i >= 0; i--) {
-            if(optionList.size() > i) {
-                if (exclude != null) {
-                    boolean canRemove = true;
-                    for (Cell c : exclude) {
-                        if (c.equals(optionList.get(i))) {
-                            canRemove = false;
-                            break;
+        if(optionsList.get(option) != null) {
+            ArrayList<Cell> optionList = optionsList.get(option);
+            for (int i = optionList.size() - 1; i >= 0; i--) {
+                if (optionList.size() > i) {
+                    if (exclude != null) {
+                        boolean canRemove = true;
+                        for (Cell c : exclude) {
+                            if (c.equals(optionList.get(i))) {
+                                canRemove = false;
+                                break;
+                            }
                         }
-                    }
-                    if (canRemove) {
+                        if (canRemove) {
+                            optionList.get(i).removeOption(option);
+                        }
+                    } else {
                         optionList.get(i).removeOption(option);
                     }
-                } else {
-                    optionList.get(i).removeOption(option);
                 }
             }
         }

@@ -41,22 +41,25 @@ public class Cell {
         if(val == 0 && options.indexOf(option) != -1) {
             options.remove(options.indexOf(option));
             if(options.size() == 1){
+                //Naked Single. If there is only one option left after removing an option, set the cell to that option.
                 fill();
             }
             for(String s : sets.keySet()){
                 sets.get(s).update();
+                sets.get(s).nakedMultis();
             }
             for(Set row : parent.getRows()){
-                row.checkPointingPairs();
+                row.checkIntersections();
             }
             for(Set col : parent.getCols()){
-                col.checkPointingPairs();
+                col.checkIntersections();
             }
         }
     }
 
 
     public void clearOption(){
+        //Once a cell is filled (or filled at the start already), remove it as an option from other cells in its sets.
         for(String s : sets.keySet()){
             for(Cell cell : sets.get(s).getCells()){
                 cell.removeOption(val);
@@ -81,7 +84,6 @@ public class Cell {
             options.add(val);
             fill();
         }
-
     }
 
     public ArrayList<Integer> getOptions(){

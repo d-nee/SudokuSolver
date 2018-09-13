@@ -2,17 +2,21 @@ public class Main {
 
     public static void main(String[] args) {
         Reader r = new Reader();
-        for (int i = 29; i < 33; i++) {
+        System.out.println("-----------------");
+        for (int i = 1; i < 33; i++) {
             Board b = new Board(r.loadPuzzle("Puzzles/puzzle" + i + ".txt"));
+            System.out.println("Puzzle " + i + ":\n");
             b.printBoard();
             b.fill();
             System.out.println();
             b.printBoard();
-            System.out.println("Puzzle " + i + "\n\n");
-
+            if(b.isSolved()){
+                System.out.println("Solved");
+            }else{
+                System.out.println("Stumped");
+            }
+            System.out.println("-----------------");
         }
-
-
 
     }
 
