@@ -6,7 +6,6 @@ public class Cell {
     private int val, row, col;
     private Board parent;
     private ArrayList<Integer> options;
-    private boolean usedToClear;
     private HashMap<String, Set> sets;
 
     public Cell(int val, int row, int col, Board parent) {
@@ -22,8 +21,6 @@ public class Cell {
                 options.add(i);
             }
         }
-        usedToClear = false;
-
     }
 
 
@@ -65,7 +62,6 @@ public class Cell {
                 cell.removeOption(val);
             }
         }
-        usedToClear = true;
     }
 
 
@@ -86,7 +82,19 @@ public class Cell {
         }
     }
 
+    public void setValClean(int v){
+        val = v;
+    }
+
     public ArrayList<Integer> getOptions(){
         return options;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
     }
 }
