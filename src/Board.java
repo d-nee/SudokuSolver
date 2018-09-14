@@ -43,15 +43,15 @@ public class Board {
     }
 
     public boolean isSolved(){
+        if(!checkRules()){
+            return false;
+        }
         for(Cell[] row : cells){
             for(Cell cell : row){
                 if(cell.getVal() == 0){
                     return false;
                 }
             }
-        }
-        if(!checkRules()){
-            return false;
         }
         return true;
     }
