@@ -76,23 +76,6 @@ public class Set {
         return sum == a.size() && a.size() == b.size();
     }
 
-    public void checkNakedDoubles(){
-//        int start = 1;
-//        ArrayList<ArrayList<Cell>> cellPair = new ArrayList<ArrayList<Cell>>();
-//
-//        while(getOptionsOfSize(2, start) != -1){
-//            cellPair.add(optionsList.get())
-//        }
-    }
-
-    public int getCellOfSize(int size, int start){
-        for (int i = start; i < 10; i++) {
-            if(cells[i].getOptions().size() == size){
-                return i;
-            }
-        }
-        return -1;
-    }
     /* I doubt the implementation of these next two methods is well optimized,
     but its not like this program is a heavy lead on the computer (yet) */
     public void checkIntersections(){
