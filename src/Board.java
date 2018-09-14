@@ -4,10 +4,10 @@ public class Board {
 
     private Cell[][] cells;
     private Set[] rows, cols, boxes;
-    private int bruteForcePermuations;
+    private int bruteForcePermutations;
 
     public Board(int[][] values){
-        bruteForcePermuations = 0;
+        bruteForcePermutations = 0;
         ArrayList<Cell>[] boxSets = new ArrayList[9];
         cells = new Cell[9][9];
         rows = new Set[9];
@@ -56,9 +56,6 @@ public class Board {
         return true;
     }
     public void fill(){
-//        clearRowOptions();
-//        clearColumnOptions();
-//        clearBoxOptions();
         for(Cell[] row : cells){
             for(Cell cell : row){
                 if(cell.getVal() != 0){
@@ -79,7 +76,7 @@ public class Board {
     public void guess(Cell c){
         for(Integer o : c.getOptions()) {
             c.setValClean(o);
-            bruteForcePermuations++;
+            bruteForcePermutations++;
             if (checkRules() && !isSolved()) {
                 guess(getNextCell(c));
             }
@@ -130,8 +127,8 @@ public class Board {
             }
             System.out.println();
         }
-        if(bruteForcePermuations != 0){
-            System.out.println("Brute Force Permutations Taken: " + bruteForcePermuations);
+        if(bruteForcePermutations != 0){
+            System.out.println("Brute Force Permutations Taken: " + bruteForcePermutations);
         }
     }
 

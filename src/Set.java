@@ -1,11 +1,9 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class Set {
 
     private Cell[] cells;
     private HashMap<Integer, ArrayList<Cell>> optionsList;
-    private HashMap<Integer, ArrayList<ArrayList<Cell>>> commonOptions;
     private String name;
     public Set(Cell[] cells, String name){
         this.cells = cells;
@@ -18,13 +16,10 @@ public class Set {
                 cell.getSets().put(name, this);
             }
         }
-
-//        commonOptions = new HashMap<Integer, ArrayList<ArrayList<Cell>>>();
         update();
     }
 
     public void update(){
-//        commonOptions.clear();
         for (int i = 1; i < 10; i++) {
 
             if(optionsList.get(i) != null) {
@@ -60,20 +55,6 @@ public class Set {
 
     public Cell[] getCells() {
         return cells;
-    }
-
-
-    public boolean checkLists(ArrayList<Integer> a, ArrayList<Integer> b){
-        int sum = 0;
-        for(Integer c : a){
-            for(Integer c1 : b){
-                if(c.equals(c1)){
-                    sum++;
-                    break;
-                }
-            }
-        }
-        return sum == a.size() && a.size() == b.size();
     }
 
     /* I doubt the implementation of these next two methods is well optimized,
@@ -126,10 +107,6 @@ public class Set {
                 }
             }
         }
-    }
-
-    public boolean hasCell(Cell c){
-        return c.getSets().get(this.name).equals(this);
     }
 
     public boolean checkValid(){
