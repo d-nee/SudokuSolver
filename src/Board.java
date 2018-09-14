@@ -4,8 +4,10 @@ public class Board {
 
     private Cell[][] cells;
     private Set[] rows, cols, boxes;
+    private int bruteForcePermuations;
 
     public Board(int[][] values){
+        bruteForcePermuations = 0;
         ArrayList<Cell>[] boxSets = new ArrayList[9];
         cells = new Cell[9][9];
         rows = new Set[9];
@@ -48,19 +50,22 @@ public class Board {
                 }
             }
         }
+        if(!checkRules()){
+            return false;
+        }
         return true;
     }
     public void fill(){
 //        clearRowOptions();
 //        clearColumnOptions();
 //        clearBoxOptions();
-//        for(Cell[] row : cells){
-//            for(Cell cell : row){
-//                if(cell.getVal() != 0){
-//                    cell.clearOption();
-//                }
-//            }
-//        }
+        for(Cell[] row : cells){
+            for(Cell cell : row){
+                if(cell.getVal() != 0){
+                    cell.clearOption();
+                }
+            }
+        }
         if(!isSolved()) {
             if (cells[0][0].getVal() == 0) {
                 guess(cells[0][0]);
@@ -73,14 +78,13 @@ public class Board {
 
     public void guess(Cell c){
         for(Integer o : c.getOptions()) {
-            if(isSolved() && checkRules()){
-                break;
-            }
             c.setValClean(o);
-//            System.out.println();
-//            printBoard();
-            if (checkRules() & !isSolved()) {
+            bruteForcePermuations++;
+            if (checkRules() && !isSolved()) {
                 guess(getNextCell(c));
+            }
+            if(isSolved()){
+                break;
             }
         }
         if(!isSolved()){
@@ -125,6 +129,9 @@ public class Board {
                 System.out.print(cell.getVal() + " ");
             }
             System.out.println();
+        }
+        if(bruteForcePermuations != 0){
+            System.out.println("Brute Force Permutations Taken: " + bruteForcePermuations);
         }
     }
 
